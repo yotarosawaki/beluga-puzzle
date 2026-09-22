@@ -15,7 +15,7 @@
   const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
   function reset() {
     whales = []; score = 0; gameOver = false; dangerTime = 0; cooldown = 0; pointerX = W / 2;
-    next = randomType(); scoreEl.textContent = score; overlay.hidden = true; lastTime = performance.now();
+    next = 1; scoreEl.textContent = score; overlay.hidden = true; lastTime = performance.now();
   }
   function drop() {
     if (gameOver || cooldown > 0) return;
@@ -58,26 +58,27 @@
     const { r, color } = types[w.type]; const ink = '#1a5b76';
     ctx.save(); ctx.globalAlpha = ghost ? .58 : 1; ctx.translate(w.x, w.y);
     ctx.rotate(clamp(w.vx * .045, -.14, .14));
-    // 横から見た、白いベルーガの体。背びれがないのもベルーガの特徴です。
+    // 頭から尾までを一筆で結んだ、背びれのないベルーガの横顔。
     ctx.fillStyle = color; ctx.strokeStyle = '#bee6ee'; ctx.lineWidth = Math.max(1, r*.028);
-    ctx.beginPath(); ctx.ellipse(-r*.05, r*.07, r*.91, r*.58, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-    // 大きく丸い額（メロン）と、短い口先
-    ctx.beginPath(); ctx.ellipse(r*.44, -r*.19, r*.51, r*.55, -.12, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-    ctx.beginPath(); ctx.ellipse(r*.76, r*.12, r*.27, r*.2, -.1, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-    // はっきり二股にした尾びれ
-    ctx.fillStyle = '#d9f3f8';
-    ctx.beginPath(); ctx.moveTo(-r*.75, r*.03); ctx.quadraticCurveTo(-r*1.27, -r*.5, -r*1.2, -r*.05);
-    ctx.quadraticCurveTo(-r*1.15, r*.14, -r*.86, r*.16); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(-r*.76, r*.08); ctx.quadraticCurveTo(-r*1.34, r*.55, -r*1.14, r*.08);
-    ctx.quadraticCurveTo(-r*1.02, -r*.04, -r*.82, -.02*r); ctx.closePath(); ctx.fill(); ctx.stroke();
-    // 丸い胸びれ
-    ctx.fillStyle = '#c8edf4'; ctx.beginPath(); ctx.ellipse(r*.2, r*.57, r*.36, r*.15, .42, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-r*.62, -r*.14);
+    ctx.bezierCurveTo(-r*.95, -r*.55, -r*1.26, -r*.55, -r*1.12, -r*.12);
+    ctx.bezierCurveTo(-r*1.42, r*.02, -r*1.3, r*.35, -r*.72, r*.16);
+    ctx.bezierCurveTo(-r*.5, r*.7, r*.43, r*.71, r*.88, r*.28);
+    ctx.bezierCurveTo(r*1.09, r*.1, r*1.04, -.02*r, r*.85, -.07*r);
+    ctx.bezierCurveTo(r*.86, -r*.63, r*.36, -r*.84, -r*.14, -r*.67);
+    ctx.bezierCurveTo(-r*.45, -r*.59, -r*.61, -r*.35, -r*.62, -r*.14);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    // 下側に沿う胸びれ。体とつながる位置に留めて立体感を出す。
+    ctx.fillStyle = '#c8edf4'; ctx.beginPath(); ctx.moveTo(r*.12, r*.4);
+    ctx.quadraticCurveTo(r*.53, r*.73, r*.43, r*.35); ctx.quadraticCurveTo(r*.31, r*.25, r*.12, r*.4);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
     // 目、ほっぺ、そしてベルーガらしい穏やかな口元
     const eye = Math.max(2.2, r*.07); ctx.fillStyle = ink;
-    ctx.beginPath(); ctx.arc(r*.57, -r*.18, eye, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#f3a7b488'; ctx.beginPath(); ctx.ellipse(r*.62, r*.08, r*.14, r*.075, 0, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(r*.57, -r*.2, eye, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#f3a7b488'; ctx.beginPath(); ctx.ellipse(r*.64, r*.04, r*.14, r*.075, 0, 0, Math.PI*2); ctx.fill();
     ctx.strokeStyle = ink; ctx.lineWidth = Math.max(1.3, r*.034); ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.moveTo(r*.62, r*.15); ctx.quadraticCurveTo(r*.77, r*.28, r*.91, r*.13); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(r*.63, r*.11); ctx.quadraticCurveTo(r*.77, r*.24, r*.91, r*.1); ctx.stroke();
     // 額のツヤで白くつるんとした質感を強調
     ctx.fillStyle = '#ffffffcc'; ctx.beginPath(); ctx.ellipse(r*.35, -r*.55, r*.27, r*.1, -.25, 0, Math.PI*2); ctx.fill();
     ctx.restore();
