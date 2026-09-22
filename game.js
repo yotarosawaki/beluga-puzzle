@@ -6,9 +6,9 @@
   const finalScore = document.querySelector('#final-score');
   const W = 390, H = 620, FLOOR = 604, DROP_Y = 55;
   const types = [
-    { r: 18, color: '#f4feff', name: 'ぷち' }, { r: 27, color: '#e4faff', name: 'ちび' },
-    { r: 39, color: '#d3f3fb', name: 'ふわ' }, { r: 55, color: '#b6e6f3', name: 'どーん' },
-    { r: 74, color: '#93d7ea', name: '王様' }
+    { r: 18, color: '#ffffff', name: 'ぷち' }, { r: 27, color: '#fbfeff', name: 'ちび' },
+    { r: 39, color: '#f5fcff', name: 'ふわ' }, { r: 55, color: '#edfaff', name: 'どーん' },
+    { r: 74, color: '#e2f6fb', name: '王様' }
   ];
   let whales, next, score, gameOver, lastTime, dangerTime, pointerX, cooldown;
   const randomType = () => Math.random() < .72 ? (Math.random() < .57 ? 0 : 1) : 2;
@@ -55,26 +55,31 @@
     if (dangerTime > 1800) { gameOver = true; finalScore.textContent = score; overlay.hidden = false; }
   }
   function whale(w, ghost = false) {
-    const { r, color } = types[w.type]; const ink = '#195875';
-    ctx.save(); ctx.globalAlpha = ghost ? .52 : 1; ctx.translate(w.x, w.y);
+    const { r, color } = types[w.type]; const ink = '#1a5b76';
+    ctx.save(); ctx.globalAlpha = ghost ? .58 : 1; ctx.translate(w.x, w.y);
     ctx.rotate(clamp(w.vx * .045, -.14, .14));
-    // 丸い体と、ベルーガらしい大きなメロン（額）
-    ctx.fillStyle = color; ctx.beginPath(); ctx.ellipse(0, r*.04, r, r*.72, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(r*.18, -r*.25, r*.62, r*.54, -.14, 0, Math.PI * 2); ctx.fill();
-    // しっぽ：小さなハートのような形で、ぬいぐるみ感を出す
-    ctx.beginPath(); ctx.moveTo(-r*.78, r*.04); ctx.quadraticCurveTo(-r*1.27, -r*.36, -r*1.05, r*.1);
-    ctx.quadraticCurveTo(-r*1.3, r*.42, -r*.77, r*.27); ctx.closePath(); ctx.fill();
-    // おなか側のぷちヒレ
-    ctx.fillStyle = '#8ccddd'; ctx.beginPath(); ctx.ellipse(r*.08, r*.65, r*.35, r*.16, .22, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = color; ctx.beginPath(); ctx.ellipse(r*.51, r*.34, r*.31, r*.15, .62, 0, Math.PI * 2); ctx.fill();
-    // 目、ほっぺ、にっこり口
-    const eye = Math.max(2.1, r*.07); ctx.fillStyle = ink;
-    ctx.beginPath(); ctx.arc(r*.38, -r*.17, eye, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#f29aaa88'; ctx.beginPath(); ctx.ellipse(r*.47, r*.1, r*.16, r*.085, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = ink; ctx.lineWidth = Math.max(1.4, r*.036); ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.arc(r*.37, r*.005, r*.19, .28, 1.35); ctx.stroke();
-    // 頭のハイライト
-    ctx.fillStyle = '#ffffffa8'; ctx.beginPath(); ctx.ellipse(r*.02, -r*.52, r*.27, r*.105, -.28, 0, Math.PI * 2); ctx.fill();
+    // 横から見た、白いベルーガの体。背びれがないのもベルーガの特徴です。
+    ctx.fillStyle = color; ctx.strokeStyle = '#bee6ee'; ctx.lineWidth = Math.max(1, r*.028);
+    ctx.beginPath(); ctx.ellipse(-r*.05, r*.07, r*.91, r*.58, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    // 大きく丸い額（メロン）と、短い口先
+    ctx.beginPath(); ctx.ellipse(r*.44, -r*.19, r*.51, r*.55, -.12, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(r*.76, r*.12, r*.27, r*.2, -.1, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    // はっきり二股にした尾びれ
+    ctx.fillStyle = '#d9f3f8';
+    ctx.beginPath(); ctx.moveTo(-r*.75, r*.03); ctx.quadraticCurveTo(-r*1.27, -r*.5, -r*1.2, -r*.05);
+    ctx.quadraticCurveTo(-r*1.15, r*.14, -r*.86, r*.16); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-r*.76, r*.08); ctx.quadraticCurveTo(-r*1.34, r*.55, -r*1.14, r*.08);
+    ctx.quadraticCurveTo(-r*1.02, -r*.04, -r*.82, -.02*r); ctx.closePath(); ctx.fill(); ctx.stroke();
+    // 丸い胸びれ
+    ctx.fillStyle = '#c8edf4'; ctx.beginPath(); ctx.ellipse(r*.2, r*.57, r*.36, r*.15, .42, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    // 目、ほっぺ、そしてベルーガらしい穏やかな口元
+    const eye = Math.max(2.2, r*.07); ctx.fillStyle = ink;
+    ctx.beginPath(); ctx.arc(r*.57, -r*.18, eye, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#f3a7b488'; ctx.beginPath(); ctx.ellipse(r*.62, r*.08, r*.14, r*.075, 0, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = ink; ctx.lineWidth = Math.max(1.3, r*.034); ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(r*.62, r*.15); ctx.quadraticCurveTo(r*.77, r*.28, r*.91, r*.13); ctx.stroke();
+    // 額のツヤで白くつるんとした質感を強調
+    ctx.fillStyle = '#ffffffcc'; ctx.beginPath(); ctx.ellipse(r*.35, -r*.55, r*.27, r*.1, -.25, 0, Math.PI*2); ctx.fill();
     ctx.restore();
   }
   function draw() {
