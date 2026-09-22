@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#073452" />
+    <title>繝吶Ν繝ｼ繧ｬ繝ｻ繝槭・繧ｸ</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header>
+        <div>
+          <p class="eyebrow">BELUGA MERGE</p>
+          <h1>繝吶Ν繝ｼ繧ｬ繝ｻ繝槭・繧ｸ</h1>
+        </div>
+        <div class="score-card" aria-label="迴ｾ蝨ｨ縺ｮ繧ｹ繧ｳ繧｢">
+          <span>SCORE</span><strong id="score">0</strong>
+        </div>
+      </header>
+
+      <section class="how-to" aria-label="驕翫・譁ｹ">
+        <span>蜷後§螟ｧ縺阪＆縺ｮ繝吶Ν繝ｼ繧ｬ繧偵￥縺｣縺､縺代※縲√ｂ縺｣縺ｨ螟ｧ縺阪￥縺励ｈ縺・ｼ・/span>
+        <button id="restart" type="button">繧ゅ≧荳蠎ｦ驕翫・</button>
+      </section>
+
+      <div class="canvas-wrap">
+        <canvas id="game" width="390" height="620" aria-label="繝吶Ν繝ｼ繧ｬ繝ｻ繝槭・繧ｸ縺ｮ繧ｲ繝ｼ繝逕ｻ髱｢"></canvas>
+        <div id="gameover" class="gameover" hidden>
+          <p>GAME OVER</p>
+          <strong id="final-score">0</strong>
+          <button id="play-again" type="button">繝ｪ繝医Λ繧､</button>
+        </div>
+      </div>
+      <p class="hint">繝槭え繧ｹ繝ｻ繧ｿ繝・メ繝ｻ竊・竊偵く繝ｼ縺ｧ菴咲ｽｮ繧呈ｱｺ繧√√け繝ｪ繝・け縺ｾ縺溘・Space縺ｧ關ｽ縺ｨ縺励∪縺・/p>
+      <footer>5遞ｮ鬘槭・繝吶Ν繝ｼ繧ｬ繧貞・驛ｨ縺､縺ｪ縺偵ｉ繧後ｋ縺九↑・・/footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
+
