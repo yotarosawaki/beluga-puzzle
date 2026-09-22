@@ -6,9 +6,9 @@
   const finalScore = document.querySelector('#final-score');
   const W = 390, H = 620, FLOOR = 604, DROP_Y = 55;
   const types = [
-    { r: 18, color: '#d9f8fa', name: 'ぷち' }, { r: 27, color: '#a5e9ee', name: 'ちび' },
-    { r: 39, color: '#71d0dc', name: 'ふわ' }, { r: 55, color: '#38a9be', name: 'どーん' },
-    { r: 74, color: '#14728e', name: '王様' }
+    { r: 18, color: '#f4feff', name: 'ぷち' }, { r: 27, color: '#e4faff', name: 'ちび' },
+    { r: 39, color: '#d3f3fb', name: 'ふわ' }, { r: 55, color: '#b6e6f3', name: 'どーん' },
+    { r: 74, color: '#93d7ea', name: '王様' }
   ];
   let whales, next, score, gameOver, lastTime, dangerTime, pointerX, cooldown;
   const randomType = () => Math.random() < .72 ? (Math.random() < .57 ? 0 : 1) : 2;
@@ -55,13 +55,26 @@
     if (dangerTime > 1800) { gameOver = true; finalScore.textContent = score; overlay.hidden = false; }
   }
   function whale(w, ghost = false) {
-    const { r, color } = types[w.type]; ctx.save(); ctx.globalAlpha = ghost ? .52 : 1;
-    ctx.translate(w.x, w.y); ctx.rotate(clamp(w.vx * .05, -.18, .18));
-    ctx.fillStyle = color; ctx.beginPath(); ctx.ellipse(0, 0, r, r * .76, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#073d5d'; ctx.beginPath(); ctx.arc(r * .27, -r * .18, Math.max(2, r*.075), 0, Math.PI*2); ctx.fill();
-    ctx.strokeStyle = '#073d5d'; ctx.lineWidth = Math.max(1.5, r*.045); ctx.lineCap = 'round'; ctx.beginPath(); ctx.arc(r*.22, r*.05, r*.17, .15, 1.25); ctx.stroke();
-    ctx.fillStyle = '#d7fbff88'; ctx.beginPath(); ctx.ellipse(-r*.24, -r*.26, r*.22, r*.1, -.4, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = color; ctx.beginPath(); ctx.moveTo(-r*.72, 0); ctx.lineTo(-r*1.1, -r*.28); ctx.lineTo(-r*.98, r*.08); ctx.lineTo(-r*1.15, r*.31); ctx.closePath(); ctx.fill();
+    const { r, color } = types[w.type]; const ink = '#195875';
+    ctx.save(); ctx.globalAlpha = ghost ? .52 : 1; ctx.translate(w.x, w.y);
+    ctx.rotate(clamp(w.vx * .045, -.14, .14));
+    // 丸い体と、ベルーガらしい大きなメロン（額）
+    ctx.fillStyle = color; ctx.beginPath(); ctx.ellipse(0, r*.04, r, r*.72, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(r*.18, -r*.25, r*.62, r*.54, -.14, 0, Math.PI * 2); ctx.fill();
+    // しっぽ：小さなハートのような形で、ぬいぐるみ感を出す
+    ctx.beginPath(); ctx.moveTo(-r*.78, r*.04); ctx.quadraticCurveTo(-r*1.27, -r*.36, -r*1.05, r*.1);
+    ctx.quadraticCurveTo(-r*1.3, r*.42, -r*.77, r*.27); ctx.closePath(); ctx.fill();
+    // おなか側のぷちヒレ
+    ctx.fillStyle = '#8ccddd'; ctx.beginPath(); ctx.ellipse(r*.08, r*.65, r*.35, r*.16, .22, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = color; ctx.beginPath(); ctx.ellipse(r*.51, r*.34, r*.31, r*.15, .62, 0, Math.PI * 2); ctx.fill();
+    // 目、ほっぺ、にっこり口
+    const eye = Math.max(2.1, r*.07); ctx.fillStyle = ink;
+    ctx.beginPath(); ctx.arc(r*.38, -r*.17, eye, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#f29aaa88'; ctx.beginPath(); ctx.ellipse(r*.47, r*.1, r*.16, r*.085, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = ink; ctx.lineWidth = Math.max(1.4, r*.036); ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.arc(r*.37, r*.005, r*.19, .28, 1.35); ctx.stroke();
+    // 頭のハイライト
+    ctx.fillStyle = '#ffffffa8'; ctx.beginPath(); ctx.ellipse(r*.02, -r*.52, r*.27, r*.105, -.28, 0, Math.PI * 2); ctx.fill();
     ctx.restore();
   }
   function draw() {
