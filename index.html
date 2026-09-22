@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#073452" />
-    <title>繝吶Ν繝ｼ繧ｬ繝ｻ繝槭・繧ｸ</title>
+    <title>ベルーガ・マージ</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -12,28 +12,28 @@
       <header>
         <div>
           <p class="eyebrow">BELUGA MERGE</p>
-          <h1>繝吶Ν繝ｼ繧ｬ繝ｻ繝槭・繧ｸ</h1>
+          <h1>ベルーガ・マージ</h1>
         </div>
-        <div class="score-card" aria-label="迴ｾ蝨ｨ縺ｮ繧ｹ繧ｳ繧｢">
+        <div class="score-card" aria-label="現在のスコア">
           <span>SCORE</span><strong id="score">0</strong>
         </div>
       </header>
 
-      <section class="how-to" aria-label="驕翫・譁ｹ">
-        <span>蜷後§螟ｧ縺阪＆縺ｮ繝吶Ν繝ｼ繧ｬ繧偵￥縺｣縺､縺代※縲√ｂ縺｣縺ｨ螟ｧ縺阪￥縺励ｈ縺・ｼ・/span>
-        <button id="restart" type="button">繧ゅ≧荳蠎ｦ驕翫・</button>
+      <section class="how-to" aria-label="遊び方">
+        <span>同じ大きさのベルーガをくっつけて、もっと大きくしよう！</span>
+        <button id="restart" type="button">もう一度遊ぶ</button>
       </section>
 
       <div class="canvas-wrap">
-        <canvas id="game" width="390" height="620" aria-label="繝吶Ν繝ｼ繧ｬ繝ｻ繝槭・繧ｸ縺ｮ繧ｲ繝ｼ繝逕ｻ髱｢"></canvas>
+        <canvas id="game" width="390" height="620" aria-label="ベルーガ・マージのゲーム画面"></canvas>
         <div id="gameover" class="gameover" hidden>
           <p>GAME OVER</p>
           <strong id="final-score">0</strong>
-          <button id="play-again" type="button">繝ｪ繝医Λ繧､</button>
+          <button id="play-again" type="button">リトライ</button>
         </div>
       </div>
-      <p class="hint">繝槭え繧ｹ繝ｻ繧ｿ繝・メ繝ｻ竊・竊偵く繝ｼ縺ｧ菴咲ｽｮ繧呈ｱｺ繧√√け繝ｪ繝・け縺ｾ縺溘・Space縺ｧ關ｽ縺ｨ縺励∪縺・/p>
-      <footer>5遞ｮ鬘槭・繝吶Ν繝ｼ繧ｬ繧貞・驛ｨ縺､縺ｪ縺偵ｉ繧後ｋ縺九↑・・/footer>
+      <p class="hint">マウス・タッチ・← →キーで位置を決め、クリックまたはSpaceで落とします</p>
+      <footer>5種類のベルーガを全部つなげられるかな？</footer>
     </main>
     <script src="game.js"></script>
   </body>
