@@ -6,9 +6,9 @@
   const finalScore = document.querySelector('#final-score');
   const W = 390, H = 620, FLOOR = 604, DROP_Y = 55;
   const types = [
-    { r: 18, color: '#d9f8fa', name: '縺ｷ縺｡' }, { r: 27, color: '#a5e9ee', name: '縺｡縺ｳ' },
-    { r: 39, color: '#71d0dc', name: '縺ｵ繧・ }, { r: 55, color: '#38a9be', name: '縺ｩ繝ｼ繧・ },
-    { r: 74, color: '#14728e', name: '邇区ｧ・ }
+    { r: 18, color: '#d9f8fa', name: 'ぷち' }, { r: 27, color: '#a5e9ee', name: 'ちび' },
+    { r: 39, color: '#71d0dc', name: 'ふわ' }, { r: 55, color: '#38a9be', name: 'どーん' },
+    { r: 74, color: '#14728e', name: '王様' }
   ];
   let whales, next, score, gameOver, lastTime, dangerTime, pointerX, cooldown;
   const randomType = () => Math.random() < .72 ? (Math.random() < .57 ? 0 : 1) : 2;
@@ -68,7 +68,7 @@
     const grad = ctx.createLinearGradient(0,0,0,H); grad.addColorStop(0,'#0b7497'); grad.addColorStop(1,'#023b62'); ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
     for (let i=0;i<18;i++) { ctx.fillStyle='#b9f8ff22'; ctx.beginPath(); ctx.arc((i*83)%W, 115+(i*67)%470, 1+(i%3), 0,Math.PI*2);ctx.fill(); }
     ctx.strokeStyle = dangerTime > 0 ? '#ffd982' : '#a7edf2'; ctx.lineWidth = 2; ctx.setLineDash([6,6]); ctx.beginPath(); ctx.moveTo(0,88);ctx.lineTo(W,88);ctx.stroke();ctx.setLineDash([]);
-    ctx.fillStyle='#d9faff';ctx.font='700 11px system-ui';ctx.fillText('縺薙％繧定ｶ翫∴繧九→蜊ｱ髯ｺ・・, 12, 80);
+    ctx.fillStyle='#d9faff';ctx.font='700 11px system-ui';ctx.fillText('ここを越えると危険！', 12, 80);
     for (const w of whales) whale(w); if (!gameOver) whale({x: clamp(pointerX, types[next].r+5, W-types[next].r-5), y:DROP_Y, vx:0, type:next}, true);
     ctx.fillStyle='#d6fbff55';ctx.fillRect(0,FLOOR,W,3);
   }
