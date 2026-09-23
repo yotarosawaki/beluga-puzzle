@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#073452" />
     <title>ベルーガ・マージ</title>
-    <link rel="stylesheet" href="style.css?v=2" />
+    <link rel="stylesheet" href="style.css?v=4" />
   </head>
   <body>
     <main class="game-shell">
@@ -20,22 +20,26 @@
       </header>
 
       <section class="how-to" aria-label="遊び方">
-        <span>同じ大きさのベルーガをくっつけて、もっと大きくしよう！</span>
+        <span>同じ大きさのベルーガをくっつけて、いちばん大きい「王様」を目指そう！</span>
         <button id="restart" type="button">もう一度遊ぶ</button>
       </section>
 
       <div class="canvas-wrap">
-        <canvas id="game" width="390" height="620" aria-label="ベルーガ・マージのゲーム画面"></canvas>
-        <div id="gameover" class="gameover" hidden>
-          <p>GAME OVER</p>
+        <canvas id="game" width="340" height="620" aria-label="ベルーガ・マージのゲーム画面"></canvas>
+        <div id="result" class="result" hidden>
+          <p id="result-title">GAME OVER</p>
           <strong id="final-score">0</strong>
-          <button id="play-again" type="button">リトライ</button>
+          <p id="result-note" class="result-note">上の線を越えてしまった…</p>
+          <div class="result-buttons">
+            <button id="play-again" type="button">リトライ</button>
+            <button id="keep-going" type="button" hidden>このままつづける</button>
+          </div>
         </div>
       </div>
       <p class="hint">マウス・タッチ・← →キーで位置を決め、クリックまたはSpaceで落とします</p>
-      <footer>5種類のベルーガを全部つなげられるかな？</footer>
+      <footer>ベルーガが上の線を越えたら終わり。7段階目の「王様」ベルーガを作ればゴール！</footer>
     </main>
-    <script src="game.js?v=5"></script>
+    <script src="game.js?v=7"></script>
   </body>
 </html>
 
