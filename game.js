@@ -7,10 +7,10 @@
   const resultNote = document.querySelector('#result-note');
   const finalScore = document.querySelector('#final-score');
   const keepGoing = document.querySelector('#keep-going');
-  const W = 340, H = 620, FLOOR = 604, DROP_Y = 55;
-  // 上の線。落とした子は線より上から出発して0.6秒ほどで線の下へ抜けるので、
+  const W = 340, H = 470, FLOOR = 454, DROP_Y = 55;
+  // 上の線。落とした子は線より上から出発して0.5秒ほどで線の下へ抜けるので、
   // 「線より上に居座っている時間」がOVER_MSを超えたときだけ終わりにする。
-  const LINE = 120, WARN_MS = 500, OVER_MS = 1200;
+  const LINE = 90, WARN_MS = 500, OVER_MS = 1200;
   // 横の減速。床に着いた子がつるつる滑って勝手に集まらないようにする。
   const AIR_DRAG = .988, FLOOR_GRIP = .93;
   const types = [
@@ -116,7 +116,7 @@
   }
   function draw() {
     const grad = ctx.createLinearGradient(0,0,0,H); grad.addColorStop(0,'#0b7497'); grad.addColorStop(1,'#023b62'); ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
-    for (let i=0;i<18;i++) { ctx.fillStyle='#b9f8ff22'; ctx.beginPath(); ctx.arc((i*83)%W, 115+(i*67)%470, 1+(i%3), 0,Math.PI*2);ctx.fill(); }
+    for (let i=0;i<18;i++) { ctx.fillStyle='#b9f8ff22'; ctx.beginPath(); ctx.arc((i*83)%W, LINE+20+(i*67)%(FLOOR-LINE-30), 1+(i%3), 0,Math.PI*2);ctx.fill(); }
     ctx.strokeStyle = warn ? '#ff9d84' : '#a7edf2'; ctx.lineWidth = warn ? 3 : 2; ctx.setLineDash([6,6]); ctx.beginPath(); ctx.moveTo(0,LINE);ctx.lineTo(W,LINE);ctx.stroke();ctx.setLineDash([]);
     ctx.fillStyle = warn ? '#ffd2c4' : '#d9faff';ctx.font='700 11px system-ui';ctx.fillText('この線を越えたら終わり！', 12, LINE - 8);
     for (const w of whales) whale(w); if (state === 'play') whale({x: clamp(pointerX, types[next].r+5, W-types[next].r-5), y:DROP_Y, vx:0, type:next}, true);

@@ -11,7 +11,9 @@ h1 { margin: 0; font-size: clamp(1.7rem, 6vw, 2.25rem); letter-spacing: .04em; }
 .how-to { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; color: #c9eff6; font-size: .78rem; }
 button { border: 0; border-radius: 999px; padding: 8px 12px; color: #06324d; background: #a4f2ef; font-weight: 800; cursor: pointer; transition: transform .15s, background .15s; white-space: nowrap; }
 button:hover { transform: translateY(-1px); background: #fff4c5; }
-.canvas-wrap { position: relative; width: 100%; aspect-ratio: 340 / 620; overflow: hidden; border-radius: 20px; box-shadow: 0 18px 45px #00162599, inset 0 0 0 2px #8ee7ee80; background: #075476; }
+/* 画面が低いときは盤面ごと縮めて、下までスクロールせずに見えるようにする。
+   236px は見出し・説明・ヒント・フッターの高さぶん（余白込みの実測226pxに少し余裕を持たせた値）。 */
+.canvas-wrap { position: relative; width: min(100%, calc((100vh - 236px) * 340 / 470)); width: min(100%, calc((100dvh - 236px) * 340 / 470)); margin: 0 auto; aspect-ratio: 340 / 470; overflow: hidden; border-radius: 20px; box-shadow: 0 18px 45px #00162599, inset 0 0 0 2px #8ee7ee80; background: #075476; }
 canvas { display: block; width: 100%; height: 100%; touch-action: none; }
 .result { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: 10px; padding: 16px; text-align: center; background: #00263ccc; backdrop-filter: blur(3px); }
 .result[hidden] { display: none; }
@@ -27,5 +29,10 @@ canvas { display: block; width: 100%; height: 100%; touch-action: none; }
 #keep-going { background: #ffe08a; }
 .hint, footer { text-align: center; color: #b8e5ee; font-size: .75rem; line-height: 1.5; }
 .hint { margin: 12px 0 18px; } footer { opacity: .8; }
-@media (max-width: 390px) { .game-shell { padding: 14px 8px; } .how-to { font-size: .7rem; } }
+/* 狭い画面では説明文が折り返して高さが増えるぶん、盤面用の余白を多めに取る */
+@media (max-width: 390px) {
+  .game-shell { padding: 14px 8px; }
+  .how-to { font-size: .7rem; }
+  .canvas-wrap { width: min(100%, calc((100vh - 252px) * 340 / 470)); width: min(100%, calc((100dvh - 252px) * 340 / 470)); }
+}
 
